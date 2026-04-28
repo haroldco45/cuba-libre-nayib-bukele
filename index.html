@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="theme-color" content="#c8102e"/>
+<meta name="description" content="Palabras de Nayib Bukele para el pueblo cubano — ¡Cuba Libre!"/>
+<meta property="og:title" content="🇨🇺 Cuba Libre — Nayib Bukele"/>
+<meta property="og:description" content="El tiempo de la dictadura se acabó. Palabras para el pueblo cubano."/>
+<link rel="manifest" href="./manifest.json"/>
+<title>🇨🇺 Cuba Libre — Nayib Bukele</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+<style>
+  :root {
+    --red:    #c8102e;
+    --blue:   #002a8f;
+    --white:  #f5f0e8;
+    --gold:   #d4af37;
+    --dark:   #080808;
+    --mid:    #1a1a1a;
+    --text:   #e8e0d0;
+    --muted:  #888;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ── SPLASH ── */
+  #splash {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--dark);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem;
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  #splash.hide { opacity: 0; transform: scale(1.04); pointer-events: none; }
+
+  .splash-flag {
+    font-size: 5rem;
+    animation: pulse 1.5s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.1); }
+  }
+  .splash-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 10vw, 4rem);
+    letter-spacing: .12em;
+    color: var(--white);
+    text-align: center;
+    line-height: 1;
+  }
+  .splash-sub {
+    font-size: .85rem;
+    color: var(--muted);
+    letter-spacing: .25em;
+    text-transform: uppercase;
+  }
+  .splash-bar {
+    width: 0; height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--gold), var(--blue));
+    border-radius: 2px;
+    animation: load 2.2s ease forwards;
+    margin-top: .5rem;
+  }
+  @keyframes load { to { width: 200px; } }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(8,8,8,.96);
+    border-top: 1px solid #222;
+    display: flex; justify-content: space-around;
+    padding: .5rem 0 max(.5rem, env(safe-area-inset-bottom));
+    backdrop-filter: blur(12px);
+  }
+  .nav-btn {
+    display: flex; flex-direction: column; align-items: center; gap: .2rem;
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-size: .62rem; letter-spacing: .08em;
+    text-transform: uppercase; padding: .3rem .8rem;
+    transition: color .25s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-btn .icon { font-size: 1.3rem; transition: transform .25s; }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn.active .icon { transform: translateY(-2px); }
+
+  /* ── SECTIONS ── */
+  section {
+    display: none; min-height: 100dvh;
+    padding: 3.5rem 1.2rem 5.5rem;
+    animation: fadeIn .4s ease;
+    max-width: 640px; margin: 0 auto;
+  }
+  section.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: none; } }
+
+  /* ── SECTION: INTRO ── */
+  .breaking-badge {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: var(--red); color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: .85rem; letter-spacing: .15em;
+    padding: .25rem .8rem; border-radius: 2px;
+    margin-bottom: 1.2rem;
+    animation: blink 1.2s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: .4; } }
+  .dot-live { width: 7px; height: 7px; background: #fff; border-radius: 50%; }
+
+  .intro-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 14vw, 5.5rem);
+    line-height: .95;
+    color: var(--white);
+    letter-spacing: .04em;
+    margin-bottom: 1rem;
+  }
+  .intro-headline span { color: var(--red); }
+
+  .intro-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--gold);
+    margin-bottom: 1.6rem;
+    line-height: 1.6;
+  }
+
+  .flag-strip {
+    display: flex; height: 6px; border-radius: 3px; overflow: hidden;
+    margin-bottom: 1.6rem;
+  }
+  .flag-strip div { flex: 1; }
+  .flag-strip .b { background: var(--blue); }
+  .flag-strip .w { background: var(--white); }
+  .flag-strip .r { background: var(--red); }
+
+  .intro-meta {
+    display: flex; flex-wrap: wrap; gap: .6rem;
+    margin-bottom: 1.8rem;
+  }
+  .tag {
+    background: #1e1e1e; border: 1px solid #333;
+    color: var(--muted); font-size: .72rem;
+    padding: .25rem .65rem; border-radius: 20px;
+    letter-spacing: .05em;
+  }
+
+  .cta-btn {
+    display: block; width: 100%;
+    background: var(--red);
+    color: #fff; font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem; letter-spacing: .15em;
+    border: none; padding: 1rem 1.5rem;
+    border-radius: 4px; cursor: pointer;
+    transition: background .2s, transform .1s;
+    text-align: center;
+  }
+  .cta-btn:active { transform: scale(.98); }
+  .cta-btn:hover { background: #a50d25; }
+
+  .cta-btn.outline {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    margin-top: .8rem;
+  }
+  .cta-btn.outline:hover { background: var(--gold); color: var(--dark); }
+
+  /* Author card */
+  .author-card {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--mid); border-radius: 10px;
+    padding: 1rem 1.2rem; margin-top: 1.8rem;
+    border-left: 3px solid var(--gold);
+  }
+  .author-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; flex-shrink: 0;
+  }
+  .author-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: .08em;
+    color: var(--white);
+  }
+  .author-role {
+    font-size: .75rem; color: var(--muted);
+    margin-top: .15rem;
+  }
+
+  /* ── SECTION: DISCURSO ── */
+  .speech-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    color: var(--white); letter-spacing: .06em;
+    line-height: 1; margin-bottom: .4rem;
+  }
+  .speech-divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--red) 0%, var(--gold) 50%, transparent 100%);
+    margin-bottom: 1.8rem;
+  }
+
+  .speech-block {
+    background: var(--mid); border-radius: 8px;
+    padding: 1.2rem 1.3rem; margin-bottom: 1rem;
+    border-left: 3px solid transparent;
+    transition: border-color .2s;
+    font-size: .93rem; line-height: 1.75; color: #d0c8b8;
+  }
+  .speech-block:hover { border-left-color: var(--gold); }
+  .speech-block.highlight {
+    background: linear-gradient(135deg, #1a0a0e, #12101a);
+    border-left-color: var(--red);
+  }
+  .speech-block strong {
+    color: var(--gold); font-weight: 600;
+  }
+
+  .speech-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+    font-style: italic;
+    color: var(--white);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    margin: 1.5rem 0;
+    line-height: 1.5;
+  }
+
+  .speech-signature {
+    text-align: right;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: .9rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #2a2a2a;
+  }
+
+  /* ── SECTION: PROPUESTAS ── */
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    color: var(--white); letter-spacing: .06em;
+    line-height: 1; margin-bottom: .4rem;
+  }
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--gold) 50%, transparent 100%);
+    margin-bottom: 1.8rem;
+  }
+
+  .proposal-card {
+    background: var(--mid);
+    border-radius: 10px;
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 1rem;
+    position: relative; overflow: hidden;
+    transition: transform .2s;
+  }
+  .proposal-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 3px;
+  }
+  .proposal-card:nth-child(odd)::before  { background: var(--red); }
+  .proposal-card:nth-child(even)::before { background: var(--blue); }
+  .proposal-card:active { transform: scale(.99); }
+
+  .proposal-icon { font-size: 1.8rem; margin-bottom: .5rem; }
+  .proposal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem; letter-spacing: .08em;
+    color: var(--white); margin-bottom: .4rem;
+  }
+  .proposal-desc {
+    font-size: .85rem; color: #a0988a; line-height: 1.6;
+  }
+  .proposal-tag {
+    display: inline-block;
+    background: rgba(212,175,55,.12); color: var(--gold);
+    font-size: .68rem; letter-spacing: .1em;
+    text-transform: uppercase; padding: .2rem .5rem;
+    border-radius: 3px; margin-top: .6rem;
+    border: 1px solid rgba(212,175,55,.2);
+  }
+
+  /* Stat row */
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: .8rem; margin: 1.5rem 0;
+  }
+  .stat-box {
+    background: var(--mid); border-radius: 8px;
+    padding: .9rem .6rem; text-align: center;
+    border-bottom: 2px solid var(--red);
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem; color: var(--white);
+    line-height: 1;
+  }
+  .stat-label { font-size: .65rem; color: var(--muted); margin-top: .2rem; line-height: 1.3; }
+
+  /* ── SECTION: COMPARTIR ── */
+  .share-hero {
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+  .share-flag-big { font-size: 4rem; margin-bottom: .5rem; }
+  .share-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    color: var(--white); letter-spacing: .06em;
+    margin-bottom: .3rem;
+  }
+  .share-sub { font-size: .85rem; color: var(--muted); margin-bottom: 2rem; }
+
+  .share-card {
+    background: linear-gradient(135deg, #1a0608, #050916);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px; padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem; color: var(--white); line-height: 1.65;
+    text-align: center;
+  }
+  .share-card span { color: var(--gold); font-style: normal; font-size: .7rem; display: block; margin-top: .7rem; letter-spacing: .1em; }
+
+  .share-btn {
+    display: flex; align-items: center; justify-content: center; gap: .7rem;
+    width: 100%; padding: .9rem 1.2rem;
+    border: none; border-radius: 8px; cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: .12em;
+    margin-bottom: .8rem; transition: opacity .2s, transform .1s;
+  }
+  .share-btn:active { transform: scale(.98); opacity: .85; }
+  .share-btn.whatsapp { background: #25D366; color: #fff; }
+  .share-btn.twitter  { background: #000; color: #fff; border: 1px solid #333; }
+  .share-btn.copy     { background: var(--mid); color: var(--gold); border: 1px solid var(--gold); }
+
+  .hashtags {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    margin-top: 1.2rem; justify-content: center;
+  }
+  .hashtag {
+    background: #111; color: var(--blue);
+    font-size: .72rem; padding: .3rem .65rem;
+    border-radius: 20px; border: 1px solid #1e2a4a;
+    cursor: pointer; transition: background .2s;
+  }
+  .hashtag:hover { background: #1a2540; }
+
+  .footer-credit {
+    text-align: center; font-size: .68rem;
+    color: #555; margin-top: 2rem; line-height: 1.7;
+    padding-top: 1rem; border-top: 1px solid #1a1a1a;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 5.5rem; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--gold); color: var(--dark);
+    font-family: 'Bebas Neue', sans-serif; letter-spacing: .12em;
+    font-size: .95rem; padding: .6rem 1.4rem; border-radius: 4px;
+    opacity: 0; transition: all .3s; pointer-events: none; z-index: 999;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-flag">🇨🇺</div>
+  <div class="splash-title">Cuba Libre</div>
+  <div class="splash-sub">Palabras de Nayib Bukele</div>
+  <div class="splash-bar"></div>
+</div>
+
+<!-- TOAST -->
+<div id="toast">¡Copiado!</div>
+
+<!-- ══════════════ SECTION: INTRO ══════════════ -->
+<section id="sec-intro" class="active">
+  <div class="breaking-badge"><div class="dot-live"></div> Último Minuto</div>
+
+  <h1 class="intro-headline">
+    Ese<br/>tiempo<br/><span>se acabó.</span>
+  </h1>
+
+  <p class="intro-sub">
+    "Pueblo cubano: no vengo a ser eterno,<br/>vengo a ser el puente."
+  </p>
+
+  <div class="flag-strip">
+    <div class="b"></div><div class="w"></div><div class="r"></div>
+    <div class="b"></div><div class="w"></div><div class="r"></div>
+    <div class="b"></div><div class="w"></div><div class="r"></div>
+  </div>
+
+  <div class="intro-meta">
+    <span class="tag">🇨🇺 Cuba Libre</span>
+    <span class="tag">Transición Nacional</span>
+    <span class="tag">Nayib Bukele</span>
+    <span class="tag">América Latina</span>
+  </div>
+
+  <button class="cta-btn" onclick="showSection('sec-discurso')">📜 Leer el Discurso Completo</button>
+  <button class="cta-btn outline" onclick="showSection('sec-propuestas')">🎯 Ver las Propuestas</button>
+
+  <div class="author-card">
+    <div class="author-avatar">🇸🇻</div>
+    <div>
+      <div class="author-name">Nayib Bukele</div>
+      <div class="author-role">Presidente de El Salvador · Futuro Presidente del Consejo de Transición Nacional de Cuba</div>
+    </div>
+  </div>
+
+  <div class="footer-credit">
+    Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados
+  </div>
+</section>
+
+<!-- ══════════════ SECTION: DISCURSO ══════════════ -->
+<section id="sec-discurso">
+  <div class="speech-header">El Discurso</div>
+  <div class="speech-divider"></div>
+
+  <div class="speech-block">
+    🇨🇺 <strong>Cuba, mi pueblo hermano</strong>, ha sufrido demasiado tiempo. Durante más de seis décadas, una dictadura cruel y fracasada les robó la libertad, la dignidad y el futuro.
+  </div>
+
+  <div class="speech-block highlight">
+    Los Castro y sus sucesores convirtieron una isla bendecida por Dios en una cárcel a cielo abierto. Prometieron paraíso y entregaron <strong>miseria, hambre, apagones eternos, medicinas que no existen</strong> y un pueblo huyendo en balsas y aviones porque ya no aguantaba más.
+  </div>
+
+  <div class="speech-quote">
+    "Condeno con toda mi fuerza esta dictadura que destruyó sueños, separó familias, encarceló a los valientes que gritaban ¡Libertad!"
+  </div>
+
+  <div class="speech-block">
+    ¡Basta ya de mentiras, de represión y de un sistema que solo produjo muerte y éxodo!
+  </div>
+
+  <div class="speech-block highlight">
+    <strong>Pero escúchenme bien: ese tiempo se acabó.</strong><br/><br/>
+    Si el destino y la voluntad de Dios y de los pueblos libres me ponen al frente de este Consejo de Transición Nacional por tres años, les juro por mi vida y por mis hijos que vamos a reconstruir Cuba desde cero, con puño firme y corazón grande.
+  </div>
+
+  <div class="speech-block">
+    🔒 Vamos a <strong>barrer la violencia y el caos</strong> que hoy asfixia las calles. En El Salvador sacamos a más de 75 mil pandilleros de las calles y convertimos el país más peligroso del mundo en uno de los más seguros de América. <strong>Lo mismo haremos en Cuba.</strong>
+  </div>
+
+  <div class="speech-block">
+    💰 En lo económico, vamos a <strong>despertar al gigante dormido</strong> que es Cuba. Levantaremos la isla con inversión real, turismo de primera, energía moderna que acabe para siempre con los blackouts, agricultura productiva y un sistema que premie el esfuerzo y el talento, no la lealtad al partido.
+  </div>
+
+  <div class="speech-block">
+    ₿ <strong>Bitcoin y la innovación serán bienvenidos.</strong> Las remesas llegarán sin trabas. Abriré las puertas de par en par a los cubanos de Miami, a los exiliados valientes que guardaron el amor por su tierra. ¡La diáspora regresará trayendo capital, ideas y ganas de construir!
+  </div>
+
+  <div class="speech-block">
+    🏥 Vamos a crear empleos dignos para que nuestros jóvenes no tengan que arriesgar la vida en el mar. Vamos a <strong>llenar los hospitales de medicinas y los mercados de comida.</strong>
+  </div>
+
+  <div class="speech-block highlight">
+    <strong>Pueblo cubano: no vengo a ser eterno, vengo a ser el puente.</strong><br/><br/>
+    Tres años para poner orden. Tres años para sentar las bases de una verdadera democracia. Tres años para que luego ustedes, en <strong>elecciones libres y transparentes</strong>, elijan su propio destino.
+  </div>
+
+  <div class="speech-quote">
+    "¡Levántense, cubanos! ¡Recuperen el orgullo de ser la Perla del Caribe! ¡Dejen atrás el miedo y caminen con la frente en alto!"
+  </div>
+
+  <div class="speech-block">
+    Juntos vamos a hacer de Cuba un ejemplo para toda América Latina: un país <strong>seguro, próspero y libre.</strong><br/><br/>
+    🇨🇺 <strong>¡Viva Cuba Libre! ¡Viva el pueblo cubano! ¡Y que Dios bendiga esta nueva era de esperanza!</strong>
+  </div>
+
+  <div class="speech-signature">
+    Con todo mi cariño y mi compromiso inquebrantable,<br/>
+    <strong>Nayib Bukele</strong><br/>
+    Futuro Presidente del Consejo de Transición Nacional de Cuba
+  </div>
+
+  <div class="footer-credit">
+    Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados
+  </div>
+</section>
+
+<!-- ══════════════ SECTION: PROPUESTAS ══════════════ -->
+<section id="sec-propuestas">
+  <div class="section-title">Las Propuestas</div>
+  <div class="section-divider"></div>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Años de transición</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">75K+</div>
+      <div class="stat-label">Pandilleros fuera en El Salvador</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Tolerancia a la corrupción</div>
+    </div>
+  </div>
+
+  <div class="proposal-card">
+    <div class="proposal-icon">🔒</div>
+    <div class="proposal-title">Seguridad Total</div>
+    <div class="proposal-desc">Mano dura contra la delincuencia, el desorden y la corrupción. Aplicando el modelo El Salvador: la ley y el orden volverán, nadie volverá a tener miedo en las calles.</div>
+    <span class="proposal-tag">Orden Público</span>
+  </div>
+
+  <div class="proposal-card">
+    <div class="proposal-icon">⚡</div>
+    <div class="proposal-title">Energía Moderna — Fin a los Apagones</div>
+    <div class="proposal-desc">Inversión en infraestructura energética moderna. Los blackouts eternos que han destruido la calidad de vida cubana terminarán para siempre.</div>
+    <span class="proposal-tag">Infraestructura</span>
+  </div>
+
+  <div class="proposal-card">
+    <div class="proposal-icon">💰</div>
+    <div class="proposal-title">Economía Libre y Abierta</div>
+    <div class="proposal-desc">Inversión real, turismo de primera, agricultura productiva. Un sistema que premie el esfuerzo y el talento, no la lealtad al partido.</div>
+    <span class="proposal-tag">Economía</span>
+  </div>
+
+  <div class="proposal-card">
+    <div class="proposal-icon">₿</div>
+    <div class="proposal-title">Bitcoin e Innovación</div>
+    <div class="proposal-desc">Bitcoin y la tecnología serán bienvenidos. Remesas sin trabas. Cuba conectada con la economía digital global del siglo XXI.</div>
+    <span class="proposal-tag">Innovación</span>
+  </div>
+
+  <div class="proposal-card">
+    <div class="proposal-icon">✈️</div>
+    <div class="proposal-title">Retorno de la Diáspora</div>
+    <div class="proposal-desc">Puertas abiertas a los cubanos de Miami y exiliados del mundo. La diáspora regresará trayendo capital, ideas y ganas de construir.</div>
+    <span class="proposal-tag">Diáspora</span>
+  </div>
+
+  <div class="proposal-card">
+    <div class="proposal-icon">🏥</div>
+    <div class="proposal-title">Salud y Alimentación</div>
+    <div class="proposal-desc">Hospitales llenos de medicinas. Mercados llenos de comida. Lo básico que toda persona merece y Cuba ha sido privada por décadas.</div>
+    <span class="proposal-tag">Bienestar Social</span>
+  </div>
+
+  <div class="proposal-card">
+    <div class="proposal-icon">🗳️</div>
+    <div class="proposal-title">Democracia Real en 3 Años</div>
+    <div class="proposal-desc">Tres años de transición, luego elecciones libres y transparentes. El pueblo cubano elegirá su propio destino. No vengo a ser eterno, vengo a ser el puente.</div>
+    <span class="proposal-tag">Democracia</span>
+  </div>
+
+  <div class="footer-credit">
+    Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados
+  </div>
+</section>
+
+<!-- ══════════════ SECTION: COMPARTIR ══════════════ -->
+<section id="sec-compartir">
+  <div class="share-hero">
+    <div class="share-flag-big">🇨🇺</div>
+    <div class="share-headline">Comparte el Mensaje</div>
+    <div class="share-sub">Difunde la esperanza por toda América Latina</div>
+  </div>
+
+  <div class="share-card">
+    "Pueblo cubano: no vengo a ser eterno, vengo a ser el puente. Tres años para poner orden, tres años para sentar las bases de una verdadera democracia."
+    <span>— Nayib Bukele | #CubaLibre</span>
+  </div>
+
+  <button class="share-btn whatsapp" onclick="shareWhatsApp()">
+    <span>📲</span> Compartir en WhatsApp
+  </button>
+  <button class="share-btn twitter" onclick="shareTwitter()">
+    <span>𝕏</span> Compartir en X / Twitter
+  </button>
+  <button class="share-btn copy" onclick="copyText()">
+    <span>📋</span> Copiar Mensaje
+  </button>
+
+  <div class="hashtags">
+    <span class="hashtag">#CubaLibre</span>
+    <span class="hashtag">#CubanosEnFlorida</span>
+    <span class="hashtag">#CubanosEnMiami</span>
+    <span class="hashtag">#Bukele</span>
+    <span class="hashtag">#TransicionCuba</span>
+    <span class="hashtag">#VivaCuba</span>
+    <span class="hashtag">#CubanDiaspora</span>
+    <span class="hashtag">#UltimaHora</span>
+    <span class="hashtag">#CubanosEnEspaña</span>
+    <span class="hashtag">#CubanosEnTampa</span>
+    <span class="hashtag">#PerlaDelCaribe</span>
+    <span class="hashtag">#LibertadParaCuba</span>
+  </div>
+
+  <div class="footer-credit">
+    Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <button class="nav-btn active" id="btn-intro" onclick="showSection('sec-intro')">
+    <span class="icon">🏠</span> Inicio
+  </button>
+  <button class="nav-btn" id="btn-discurso" onclick="showSection('sec-discurso')">
+    <span class="icon">📜</span> Discurso
+  </button>
+  <button class="nav-btn" id="btn-propuestas" onclick="showSection('sec-propuestas')">
+    <span class="icon">🎯</span> Propuestas
+  </button>
+  <button class="nav-btn" id="btn-compartir" onclick="showSection('sec-compartir')">
+    <span class="icon">📲</span> Compartir
+  </button>
+</nav>
+
+<script>
+// Splash
+setTimeout(() => {
+  document.getElementById('splash').classList.add('hide');
+  setTimeout(() => document.getElementById('splash').remove(), 700);
+}, 2400);
+
+// Navigation
+const sectionMap = {
+  'sec-intro':      'btn-intro',
+  'sec-discurso':   'btn-discurso',
+  'sec-propuestas': 'btn-propuestas',
+  'sec-compartir':  'btn-compartir'
+};
+
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById(sectionMap[id]).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Share
+const SHARE_TEXT = `🇨🇺 CUBA LIBRE — Palabras de Nayib Bukele\n\n"Pueblo cubano: no vengo a ser eterno, vengo a ser el puente. Tres años para poner orden, tres años para sentar las bases de una verdadera democracia, tres años para que luego ustedes, en elecciones libres y transparentes, elijan su propio destino."\n\n¡Viva Cuba Libre! ¡Viva el pueblo cubano!\n#CubaLibre #Bukele #TransicionCuba`;
+
+function shareWhatsApp() {
+  window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(SHARE_TEXT), '_blank');
+}
+
+function shareTwitter() {
+  const tweet = `🇨🇺 "No vengo a ser eterno, vengo a ser el puente." — @nayibbukele\n\n¡Viva Cuba Libre! #CubaLibre #TransicionCuba #Bukele`;
+  window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweet), '_blank');
+}
+
+function copyText() {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(SHARE_TEXT).then(showToast);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = SHARE_TEXT;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    showToast();
+  }
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
